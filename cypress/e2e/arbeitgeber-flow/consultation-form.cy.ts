@@ -68,13 +68,15 @@ describe('Arbeitgeber', () => {
     textBoxPhone.blur()
 
     // Wait until email and phone number are validated
-    cy.intercept('GET', '**//validate/phone-number**').as('validatePhoneNumber')
-    // cy.wait('@validatePhoneNumber').its('response.statusCode').should('eq', 200)
-    cy.wait('@validatePhoneNumber').then((intercept)=>{
-      expect(intercept.response.body.isValid).to.be.true; //should work
-  })
-      // .should('have.property', '.isValid', true)
-
+    cy.intercept('GET', '**/validate/email**').as('validateEmail')
+    cy.wait('@validateEmail').then((intercept) => {
+      expect(intercept.response.body.isValid).to.be.true
+    })
+    cy.intercept('GET', '**/validate/phone-number**').as('validatePhoneNumber')
+    cy.wait('@validatePhoneNumber').then((intercept) => {
+      expect(intercept.response.body.isValid).to.be.true
+    })
+    
     // Click Kostenlos beraten lassen button
     const buttonSubmit = cy.get('app-contact-information-step').find('.mat-button-wrapper').contains('Kostenlos')
     buttonSubmit.click({ force: true })

@@ -4,33 +4,40 @@ import { arbeitgeberPage } from '../pages/arbeitgeberPage'
 describe('Arbeitgeber', () => {
   beforeEach(() => {
     cy.viewport('iphone-8')
-    cy.visit('https://testing.powerus.de/')
+    cy.visit('')
     cy.wait(3000) // Needed, as the page in unresponsibe to clicks
+    homePage.openMenu()
+    homePage.navigateToFurArbeitPage()
   })
 
   it('can submit a free consultation', () => {
-    homePage.openMenu()
-    homePage.validateMenuIsOpen()
-    homePage.clickFurArbeitLink()
-    homePage.validateFurArbeitPage()
-
+    
     arbeitgeberPage.clickBeratungVereinbarenButton()
-    arbeitgeberPage.clickElektronikBox()
-    arbeitgeberPage.clickAnlagenmechanikBox()
-    arbeitgeberPage.clickFunnelWeiterButton()
-    arbeitgeberPage.clickThreePositionsChip()
+    
+    // Step: fields
+    arbeitgeberPage.clickFachbereichBox('Elektronik')
+    arbeitgeberPage.clickFachbereichBox('Anlagenmechanik')
+    
+    // Step: jobs-to-fill
+    arbeitgeberPage.clickPositionChip('3-5')
+
+    // Step: hiring-location
     arbeitgeberPage.enterCity('Berlin')
     arbeitgeberPage.clickLocationWeiterButton()
+    
+    // Step: company-name
     arbeitgeberPage.enterUnternehmen('PowerUs')
     arbeitgeberPage.clickLastStepButton()
+
+    // Step: contact-information
     arbeitgeberPage.enterFirstName('Max')
     arbeitgeberPage.enterLastName('Mustermann')
     arbeitgeberPage.enterEmail('max.mustermann@powerus.com')
     arbeitgeberPage.enterPhone('15143211257')
 
+    // Submit form
     arbeitgeberPage.clickSubmitButton()
-
-    const firstTitle = cy.get('h1').first()
-    firstTitle.should('include.text', 'Super')
+    cy.url().should('contain', '/arbeitgeber-anmeldung-erfolgreich')
+    cy.contains('Super').should('have.text', 'Super, vielen Dank!')
   })
 })

@@ -1,24 +1,18 @@
+import { selectors } from '../support/selectors'
+
 class HomePage {
-    get menuButton() { return cy.get(`[aria-label='Menü öffnen']`) }
-    get menuCloseButton() { return cy.get(`[aria-label='Menü schließen']`) }
-    get furArbeitLink() { return cy.get('.mat-button-wrapper').contains('Für Arbeitgeber') }
-    get furArbeitUrl() { return cy.url() }
-
+    // Open Menu and validate it is opened
     public openMenu() {
-        this.menuButton.click()
+        cy.get(selectors.menuButton).click()
+        cy.get(selectors.menuCloseButton).should('be.visible')
     }
-
-    public validateMenuIsOpen() {
-        this.menuCloseButton.should('be.visible')
+    
+    // Navigate to Für Arbeit page
+    public navigateToFurArbeitPage() {
+        cy.get(selectors.matButton).contains('Für Arbeitgeber').click({ force: true }) 
+        // .click({ force: true }): parent <div.desktop> has CSS property: display: none
+        cy.url().should('contain', '/fuer-arbeitgeber')
     }
-
-    public clickFurArbeitLink() {
-        this.furArbeitLink.click({ force: true }) // parent <div.desktop> has CSS property: display: none
-    }
-
-    public validateFurArbeitPage() {
-        this.furArbeitUrl.should('contain', '/fuer-arbeitgeber')
-    }
-
 }
+
 export const homePage: HomePage = new HomePage()

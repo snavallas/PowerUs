@@ -1,74 +1,63 @@
+import { selectors } from "../support/selectors"
+
 class ArbeitgeberPage {
-    get beratungVereinbarenButton() { return cy.get('.mat-button-wrapper').contains('Jetzt Beratung vereinbaren') }
-    get elektronikBox() { return cy.get('.mat-card-content').contains('Elektronik') }
-    get anlagenmechanikBox() { return cy.get('.mat-card-content').contains('Anlagenmechanik') }
-    get funnelWeiterButton() { return cy.get('app-funnel-steps').find('.mat-button-wrapper').contains('Weiter') }
-    get threePositionsChip() { return cy.get('.chip-text').contains('3-5') }
-    get cityTextInput() { return cy.get('input[id="mat-input-1"]') }
-    get locationWeiterButton() { return cy.get('app-hiring-location-step').find('.mat-button-wrapper').contains('Weiter') }
-    get unternehmenTextInput() { return cy.get('input[id="mat-input-2"]') }
-    get lastStepButton() { return cy.get('.mat-button-wrapper').contains('Zum letzten Schritt') }
-    get firstNameInput() { return cy.get('input[id="mat-input-3"]') }
-    get lastNameInput() { return cy.get('input[id="mat-input-4"]') }
-    get emailInput() { return cy.get('input[id="mat-input-5"]') }
-    get phoneInput() { return cy.get('input[id="mat-input-6"]') }
-    get submitButton() { return cy.get('app-contact-information-step').find('.mat-button-wrapper').contains('Kostenlos') }
-
     public clickBeratungVereinbarenButton() {
-        this.beratungVereinbarenButton.click()
+        cy.get(selectors.matButton).contains('Jetzt Beratung vereinbaren').click()
+        cy.url().should('contain', 'mitarbeitersuche')
     }
 
-    public clickElektronikBox() {
-        this.elektronikBox.click()
-    }
-
-    public clickAnlagenmechanikBox() {
-        this.anlagenmechanikBox.click()
+    public clickFachbereichBox(area: string) {
+        cy.get(selectors.matCard).contains(area).click()
     }
 
     public clickFunnelWeiterButton() {
-        this.funnelWeiterButton.click()
+        cy.get(selectors.funnelStep).find(selectors.matButton).contains('Weiter').click()
+        cy.url().should('contain', 'step=jobs-to-fill')
     }
 
-    public clickThreePositionsChip() {
-        this.threePositionsChip.click()
+    public clickPositionChip(positions: string) {
+        cy.get(selectors.chipText).contains(positions).click()
+        cy.url().should('contain', 'step=hiring-location')
     }
 
     public enterCity(city: string) {
-        this.cityTextInput.type(city, { force: true })
+        cy.get(selectors.cityInput).type(city, { force: true })
     }
 
     public clickLocationWeiterButton() {
-        this.locationWeiterButton.click()
+        cy.get(selectors.locationStep).find(selectors.matButton).contains('Weiter').click()
+        cy.url().should('contain', 'step=company-name')
     }
 
     public enterUnternehmen(company: string) {
-        this.unternehmenTextInput.type(company, { force: true })
+        cy.get(selectors.unternehmenInput).type(company, { force: true })
     }
 
     public clickLastStepButton() {
-        this.lastStepButton.click()
+        cy.get(selectors.matButton).contains('Zum letzten Schritt').click()
+        cy.url().should('contain', 'step=contact-information')
     }
 
     public enterFirstName(firstName: string) {
-        this.firstNameInput.type(firstName, { force: true })
+        cy.get(selectors.firstNameInput).type(firstName, { force: true })
     }
 
     public enterLastName(lastName: string) {
-        this.lastNameInput.type(lastName, { force: true })
+        cy.get(selectors.lastNameInput).type(lastName, { force: true })
     }
 
+    // Enter email and waits for BE validation
     public enterEmail(email: string) {
-        this.emailInput.type(email, { force: true })
+        cy.get(selectors.emailInput).type(email, { force: true })
         cy.intercept('GET', '**/validate/email**').as('validateEmail')
         cy.wait('@validateEmail', { timeout: 10000 }).then((intercept) => {
             expect(intercept.response.body.isValid).to.be.true
         })
     }
 
+    // Enter phone and waits for BE validation
     public enterPhone(phone: string) {
-        this.phoneInput.type(phone, { force: true })
-        this.phoneInput.blur()
+        cy.get(selectors.phoneInput).type(phone, { force: true }).blur()
         cy.intercept('GET', '**/validate/phone-number**').as('validatePhoneNumber')
         cy.wait('@validatePhoneNumber', { timeout: 10000 }).then((intercept) => {
             expect(intercept.response.body.isValid).to.be.true
@@ -76,7 +65,8 @@ class ArbeitgeberPage {
     }
 
     public clickSubmitButton() {
-        this.submitButton.click()
+        cy.get(selectors.contactStep).find(selectors.matButton).contains('Kostenlos').click()
     }
 }
+
 export const arbeitgeberPage: ArbeitgeberPage = new ArbeitgeberPage()

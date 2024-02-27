@@ -4,7 +4,8 @@
   "description": "Coding Challenge for PowerUs",
   "main": "index.js",
   "scripts": {
-    "test": "npx cypress open"
+    "test:open": "npx cypress open",
+    "test:run": "npx cypress run"
   },
   "author": "Santiago J Navallas",
   "license": "ISC",

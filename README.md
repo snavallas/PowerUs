@@ -2,16 +2,16 @@
 
 This repository contains an end to end test for the following scenario specified by the Coding Challenge instructions provided by *PowerUs GmbH*.
 
-#### Requirements
+### Requirements
 - Use Cypress with mobile view
 - Use Typescript (optional)
 - Develop a code that is:
-    - Clean and easy
+    - Clean and easy to read
     - Scalable
     - Simple
 - Provide instructions in a readme file
 
-#### Scenario
+### Scenario
  - Starting at https://testing.powerus.de/
  - On the header, click on **Für Arbeitgeber**
  - On the next page click on the button **Jetzt Beratung vereinbaren**
@@ -21,7 +21,8 @@ This repository contains an end to end test for the following scenario specified
 
 ## Project structure
 Framework: _Cypress and typescript_
-Design patter: _Page Object Model (POM)_
+
+Design pattern: _Page Object Model (POM)_
 
 The basic folder structure is depicted below:
 ```
@@ -33,22 +34,22 @@ PowerUs
 │───.gitignore: files not to be tracked by Git
 │───cypress.config.ts: stores specific Cypress configuration
 │───tsconfig.json: specifies root files and compiler options required to compile the project
-│───package.json: project metada, commands, dependencies, etc
+│───package.json: project metadata, commands, dependencies, etc.
 ```
  
 ## Project setup
 
 ### Pre-requisites
-- **NodeJS**: if you do not have it installed in your system, you can download it from [here](https://nodejs.org/en/download/).
-- **Git**: if you do not have it installed in your system, you can download it from [here](https://git-scm.com/downloads).
-- **Visual Studio Code** (optional): if you do not have it installed in your system, you can download it from [here](https://code.visualstudio.com/download).
+- **NodeJS**: you can download it [here](https://nodejs.org/en/download/).
+- **Git**: can be downloaded [here](https://git-scm.com/downloads).
+- **Visual Studio Code** (optional): get the installer [here](https://code.visualstudio.com/download).
 
 ### Install dependencies
-1. Execute `git clone https://github.com/snavallas/PowerUs.git` to clone this repository in your local machine.
-2. Execute `npm install` so that all the dependencies are installed on your local machine.
+1. Execute `git clone https://github.com/snavallas/PowerUs.git` to clone this repository to your local machine.
+2. Execute `npm install` so that all dependencies are installed on your local machine.
 
 ## Run test
-You can run the tests in two different forms:
+You can run the test in two different modes:
 
  - `npm run test:open`: opens Cypress interface and lets you decide which browser to use (compatible browsers Cypress found on your system)
  - `npm run test:run`: runs the test in headless mode. 

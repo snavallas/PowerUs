@@ -1,4 +1,4 @@
-import { selectors } from "../support/selectors"
+import { selectors } from '../support/selectors'
 
 class ArbeitgeberPage {
     public get submitSuccessTitle() { return cy.get(selectors.successTitle) }

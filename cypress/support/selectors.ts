@@ -12,7 +12,8 @@ const selectors = {
     chipText: '.chip-text',
     funnelStep: 'app-funnel-steps',
     locationStep: 'app-hiring-location-step',
-    contactStep: 'app-contact-information-step'
+    contactStep: 'app-contact-information-step',
+    successTitle: 'h1[class="title ng-star-inserted"]'
 }
 
 export { selectors }

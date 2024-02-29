@@ -1,6 +1,6 @@
 const selectors = {
-    menuButton: `[aria-label='Menü öffnen']`,
-    menuCloseButton: `[aria-label='Menü schließen']`,
+    menuButton: '[aria-label="Menü öffnen"]',
+    menuCloseButton: '[aria-label="Menü schließen"]',
     matButton: '.mat-button-wrapper',
     matCard: '.mat-card-content',
     cityInput: 'input[id="mat-input-1"]',
